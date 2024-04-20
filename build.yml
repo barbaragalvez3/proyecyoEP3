@@ -1,0 +1,20 @@
+nombre:  Construir 
+en: 
+  push: 
+    ramas: 
+      -  main 
+  pull_request: 
+    tipos: [ abierto , sincronizar , reabrir ]
+ trabajos: 
+  sonarcloud: 
+    nombre:  SonarCloud 
+    se ejecuta en:  ubuntu-últimos 
+    pasos: 
+      -  usos:  acciones/checkout@v3 
+        con: 
+          buscar- profundidad:  0   # Los clones superficiales deben desactivarse para una mejor relevancia del análisis 
+      -  nombre:  SonarCloud  Scan 
+        utiliza:  SonarSource/sonarcloud-github-action@master 
+        env: 
+          GITHUB_TOKEN:  ${{  secrets.GITHUB_TOKEN  }}   # Necesario para obtener información de relaciones públicas, si hay 
+          SONAR_TOKEN:  ${{  secretos.SONAR_TOKEN  }}
